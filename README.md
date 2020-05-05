@@ -21,4 +21,6 @@ saucectl version 0.4.0
 
 __Note:__ if you run the command for the first time it will initially download the binary for you. This only happens once.
 
+---
+
 For more information to `saucectl`, visit its main repository: [saucelabs/saucectl](https://github.com/saucelabs/saucectl).

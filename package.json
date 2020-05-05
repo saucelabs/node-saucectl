@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
-	"clean": "rimraf coverage bin",
+    "clean": "rimraf coverage bin",
     "release": "npm run release:patch",
     "release:patch": "np patch",
     "release:minor": "np minor",

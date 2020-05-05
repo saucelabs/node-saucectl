@@ -1,7 +1,19 @@
 module.exports = {
-	extends: ['eslint:recommended'],
+	extends: [
+		'eslint:recommended',
+		'plugin:jest/recommended',
+		'plugin:node/recommended'
+	],
 	env: {
-		  node: true,
-		  es6: true
+		node: true,
+		es6: true,
+		commonjs: true
+	},
+	parserOptions: {
+		ecmaVersion: 2018
+	},
+	plugins: ['jest', 'node'],
+	env: {
+		'jest/globals': true
 	}
 }

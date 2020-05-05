@@ -12,7 +12,7 @@ const bin = new BinWrapper()
 	.src(`${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, 'linux', 'x64')
 	.src(`${base}/v${version}/saucectl_${version}_win_32-bit.tar.gz`, 'win32', 'x86')
 	.src(`${base}/v${version}/saucectl_${version}_win_64-bit.tar.gz`, 'win64', 'x64')
-    .dest(path.join('bin'))
+    .dest(path.join(__dirname, 'bin'))
     .use(process.platform.startsWith('win') ? 'saucectl-internal.exe' : 'saucectl-internal')
 	.version(`v${version}`);
 

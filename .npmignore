@@ -3,3 +3,6 @@ __tests__
 /*.js
 !index.js
 package-lock.json
+coverage
+bin
+*.tgz

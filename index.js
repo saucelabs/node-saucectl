@@ -19,9 +19,12 @@ const bin = new BinWrapper()
 
 async function main (b, args) {
 	await b.run(['--version']);
-	spawn(b.path(), args, {
+	const saucectlProcess = spawn(b.path(), args, {
 		stdio: [process.stdin, process.stdout, process.stderr]
 	});
+    saucectlProcess.on('exit', function (code) {
+      process.exit(code);
+    });
 }
 
 /* istanbul ignore if */

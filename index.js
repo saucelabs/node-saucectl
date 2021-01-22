@@ -23,7 +23,9 @@ async function main (b, args) {
 		stdio: [process.stdin, process.stdout, process.stderr]
 	});
     saucectlProcess.on('exit', function (code) {
-      process.exit(code);
+        /* eslint-disable */
+        process.exit(code);
+        /* eslint-enable */
     });
 }
 

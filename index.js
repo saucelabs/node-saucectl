@@ -17,11 +17,17 @@ const bin = new BinWrapper()
     .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl')
 	.version(`v${version}`);
 
+/* istanbul ignore next */
 async function main (b, args) {
 	await b.run(['--version']);
-	spawn(b.path(), args, {
+	const saucectlProcess = spawn(b.path(), args, {
 		stdio: [process.stdin, process.stdout, process.stderr]
 	});
+    saucectlProcess.on('exit', function (code) {
+        /* eslint-disable */
+        process.exit(code);
+        /* eslint-enable */
+    });
 }
 
 /* istanbul ignore if */

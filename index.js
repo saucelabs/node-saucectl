@@ -17,6 +17,7 @@ const bin = new BinWrapper()
     .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl')
 	.version(`v${version}`);
 
+/* istanbul ignore next */
 async function main (b, args) {
 	await b.run(['--version']);
 	const saucectlProcess = spawn(b.path(), args, {

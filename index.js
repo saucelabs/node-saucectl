@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const BinWrapper = require('bin-wrapper');
 
-const version = '0.26.1'
+const version = '0.27.0'
 const base = 'https://github.com/saucelabs/saucectl/releases/download';
 const bin = new BinWrapper()
 	.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')

@@ -33,7 +33,10 @@ async function main (b, args) {
 /* istanbul ignore if */
 if (require.main === module) {
 	main(bin, process.argv.slice(2))
-	  .catch(() => process.exit(1))
+	  .catch((e) => {
+		  console.error(`An error occurred: ${e}`);
+		  process.exit(1)
+	  })
 	  .then(() => process.exit(0));
 }
 

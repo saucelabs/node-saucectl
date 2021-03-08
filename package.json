@@ -6,6 +6,7 @@
   "bin": "index.js",
   "scripts": {
     "clean": "rimraf coverage bin",
+    "install": "node install.js",
     "release": "npm run release:patch",
     "release:patch": "np patch",
     "release:minor": "np minor",

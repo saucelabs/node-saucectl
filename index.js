@@ -36,3 +36,4 @@ if (require.main === module) {
 }
 
 module.exports = main;
+module.exports.bin = bin;

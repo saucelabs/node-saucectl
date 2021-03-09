@@ -1,5 +1,10 @@
 const { bin } = require('./index.js');
 
+// install.js is executed during the npm installation step.
+// To re-use BinWrapper logic, and limit changes, we force BinWrapper to
+// execute "saucectl --version".
+// So we are 100% sure that the saucectl binary will be available for the next
+// execution.
 async function install () {
   console.info('Fetching saucectl binary');
   bin.run(['--version'])

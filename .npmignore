@@ -1,8 +1,6 @@
 .*
 __tests__
-/*.js
-!index.js
-!install.js
+jest.config.js
 package-lock.json
 coverage
 bin

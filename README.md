@@ -11,6 +11,12 @@ To install `saucectl` using NPM just run:
 $ npm i -g saucectl
 ```
 
+In case you need to download `saucectl` from a known source, you can use environment variable:
+
+```
+export SAUCECTL_INSTALL_BINARY=http://localhost:9000/saucectl_0.32.2_mac_64-bit.tar.gz
+```
+
 The command should be globally available:
 
 ```sh

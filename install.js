@@ -1,4 +1,4 @@
-const { bin } = require('./index.js');
+const { binWrapper } = require('./index.js');
 
 // install.js is executed during the npm installation step.
 // To re-use BinWrapper logic, and limit changes, we force BinWrapper to
@@ -7,7 +7,8 @@ const { bin } = require('./index.js');
 // execution.
 async function install () {
   console.info('Fetching saucectl binary');
-  bin.run(['--version'])
+  const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY);
+  bw.run(['--version'])
     .then(() => {
       console.info(`Installation succeed`);
       process.exit(0);

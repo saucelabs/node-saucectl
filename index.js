@@ -5,6 +5,7 @@ const BinWrapper = require('bin-wrapper');
 
 const version = '0.33.2'
 const base = 'https://github.com/saucelabs/saucectl/releases/download';
+/* istanbul ignore next */
 const binWrapper = (binInstallURL) => {
     const bw = new BinWrapper();
 
@@ -12,7 +13,6 @@ const binWrapper = (binInstallURL) => {
         bw.src(binInstallURL, '', '')
             .dest(path.join(__dirname, 'bin'))
             .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
-
         return bw;
     }
 

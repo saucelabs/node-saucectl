@@ -15,7 +15,7 @@ async function install () {
     })
     .catch((e) => {
       console.error(`Installation failed: ${e}`);
-      console.error(`Check that you have access to https://github.com/saucelabs/saucectl/releases\n\n`);
+      console.error(`Check that you have access to https://github.com/saucelabs/saucectl/releases or format of SAUCECTL_INSTALL_BINARY environment variable is correct\n\n`);
       process.exit(1);
     });
 }

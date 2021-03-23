@@ -5,27 +5,24 @@ const BinWrapper = require('bin-wrapper');
 
 const version = '0.33.3'
 const base = 'https://github.com/saucelabs/saucectl/releases/download';
-const binWrapper = (binInstallURL) => {
+const binWrapper = (binInstallURL = null) => {
     const bw = new BinWrapper();
 
     if (binInstallURL) {
         bw.src(binInstallURL, '', '')
-            .dest(path.join(__dirname, 'bin'))
-            .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
-        return bw;
+    } else {
+        bw.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')
+            .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
+            .src(`${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, 'linux', 'x86')
+            .src(`${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, 'linux', 'x64')
+            .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x86')
+            .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x64')
+            .src(`${base}/v${version}/saucectl_${version}_win_64-bit.zip`, 'win64', 'x64')
+            .version(`v${version}`);
     }
 
-    bw.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')
-        .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
-        .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, '', '')
-        .src(`${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, 'linux', 'x86')
-        .src(`${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, 'linux', 'x64')
-        .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x86')
-        .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x64')
-        .src(`${base}/v${version}/saucectl_${version}_win_64-bit.zip`, 'win64', 'x64')
-        .dest(path.join(__dirname, 'bin'))
-        .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl')
-        .version(`v${version}`);
+    bw.dest(path.join(__dirname, 'bin'))
+        .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
 
     return bw;
 }

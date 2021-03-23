@@ -25,7 +25,7 @@ jobs:
           npm whoami
       - name: Git Setup
         run: |
-          git config --global user.email "christian+saucectl-release@saucelabs.com"
-          git config --global user.name "SauceBot"
+          git config --global user.name "oss-sauce-bot"
+          git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
       - if: github.event.client_payload.version != ''
         run: npx np ${{ github.event.client_payload.version }}

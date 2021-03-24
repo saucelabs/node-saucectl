@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const BinWrapper = require('bin-wrapper');
 
-const version = '0.33.3'
+const version = '0.33.4'
 const base = 'https://github.com/saucelabs/saucectl/releases/download';
 const binWrapper = (binInstallURL = null) => {
     const bw = new BinWrapper();

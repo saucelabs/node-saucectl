@@ -32,7 +32,18 @@ async function main (b, args) {
 
 /* istanbul ignore if */
 if (require.main === module) {
-	main(bin, process.argv.slice(2));
+	main(bin, process.argv.slice(2))
+		.catch((e) => {
+			console.error(`An error occurred: ${e}`);
+			/* eslint-disable */
+			process.exit(1);
+			/* eslint-enable */
+		})
+		.then(() => {
+			/* eslint-disable */
+			process.exit(0);
+			/* eslint-enable */
+		});
 }
 
 module.exports = main;

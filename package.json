@@ -1,6 +1,6 @@
 {
   "name": "saucectl",
-  "version": "0.62.3",
+  "version": "0.63.0",
   "description": "Node.js wrapper for saucectl: Sauce Labs Testrunner Toolkit",
   "main": "index.js",
   "bin": "index.js",

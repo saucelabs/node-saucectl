@@ -4,13 +4,14 @@ const path = require('path');
 const BinWrapper = require('bin-wrapper');
 
 const version = '0.76.0'
-const base = 'https://github.com/saucelabs/saucectl/releases/download';
-const binWrapper = (binInstallURL = null) => {
+const defaultBinInstallBase = 'https://github.com/saucelabs/saucectl/releases/download';
+const binWrapper = (binInstallURL = null, binInstallBase = null) => {
     const bw = new BinWrapper();
 
     if (binInstallURL) {
         bw.src(binInstallURL, '', '')
     } else {
+        const base = binInstallBase || defaultBinInstallBase;
         bw.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')
             .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
             .src(`${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, 'linux', 'x86')
@@ -42,7 +43,7 @@ async function main (b, args) {
 
 /* istanbul ignore if */
 if (require.main === module) {
-    const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY);
+    const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY, process.env.SAUCECTL_INSTALL_BINARY_BASE_MIRROR);
 	main(bw, process.argv.slice(2));
 }
 

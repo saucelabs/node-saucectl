@@ -43,7 +43,7 @@ async function main (b, args) {
 
 /* istanbul ignore if */
 if (require.main === module) {
-    const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY, process.env.SAUCECTL_INSTALL_BINARY_BASE_MIRROR);
+    const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY, process.env.SAUCECTL_INSTALL_BINARY_MIRROR);
 	main(bw, process.argv.slice(2));
 }
 

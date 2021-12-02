@@ -7,7 +7,7 @@ const { binWrapper } = require('./index.js');
 // execution.
 async function install () {
   console.info('Fetching saucectl binary');
-  const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY);
+  const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY, process.env.SAUCECTL_INSTALL_BINARY_MIRROR);
   bw.run(['--version'])
     .then(() => {
       console.info(`Installation succeed`);

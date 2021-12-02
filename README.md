@@ -27,6 +27,14 @@ saucectl version 0.4.0
 
 __Note:__ if you run the command for the first time it will initially download the binary for you. This only happens once.
 
+### Install binary from Mirror
+
+Use the `SAUCECTL_INSTALL_BINARY_MIRROR` env to override the default download base site (https://github.com/saucelabs/saucectl/releases/download)
+
+```bash
+SAUCECTL_INSTALL_BINARY_MIRROR=https://your-mirror-download-site.com/foo/bar npm i -g saucectl
+```
+
 ---
 
 For more information to `saucectl`, visit its main repository: [saucelabs/saucectl](https://github.com/saucelabs/saucectl).

@@ -36,7 +36,7 @@ describe('main', function () {
 			expect(typeof bw._dest).toEqual('string');
 		});
 
-		test('should respect the SAUCECTL_INSTALL_BINARY_BASE_MIRROR wrapper', async function () {
+		test('should respect the SAUCECTL_INSTALL_BINARY_MIRROR wrapper', async function () {
 			const bw = await main.binWrapper(null, 'https://some-fake-mirror-url');
 			expect(Array.isArray(bw._src)).toEqual(true);
 			expect(bw._src[0].url).toMatch(/^https:\/\/some-fake-mirror-url\//);

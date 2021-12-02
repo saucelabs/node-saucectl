@@ -32,7 +32,7 @@ __Note:__ if you run the command for the first time it will initially download t
 Use the `SAUCECTL_INSTALL_BINARY_MIRROR` env to override the default download base site (https://github.com/saucelabs/saucectl/releases/download)
 
 ```bash
-SAUCECTL_INSTALL_BINARY_BASE_MIRROR=https://your-mirror-download-site.com/foo/bar npm i -g saucectl
+SAUCECTL_INSTALL_BINARY_MIRROR=https://your-mirror-download-site.com/foo/bar npm i -g saucectl
 ```
 
 ---

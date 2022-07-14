@@ -12,8 +12,8 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
         bw.src(binInstallURL, '', '')
     } else {
         const base = binInstallBase || defaultBinInstallBase;
-        bw.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')
-            .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
+        bw.src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
+            .src(`${base}/v${version}/saucectl_${version}_mac_arm64-bit.tar.gz`, 'darwin', 'arm64')
             .src(`${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, 'linux', 'x86')
             .src(`${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, 'linux', 'x64')
             .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x86')

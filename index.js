@@ -23,13 +23,13 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
 
     sources = sources.filter(x => process.platform === x.os && process.arch === x.arch);
 
-    if (sources.length === 0) {
-        return Promise.reject(new Error(`No binary found matching your system. It's probably not supported.`));
-    }
-
     if (binInstallURL) {
         bw.src(binInstallURL, '', '')
     } else {
+        if (sources.length === 0) {
+            return Promise.reject(new Error(`No binary found matching your system. It's probably not supported.`));
+        }
+
         bw.src(sources[0].url, '', '')
             .version(`v${version}`);
     }

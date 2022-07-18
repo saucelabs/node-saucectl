@@ -8,17 +8,29 @@ const defaultBinInstallBase = 'https://github.com/saucelabs/saucectl/releases/do
 const binWrapper = (binInstallURL = null, binInstallBase = null) => {
     const bw = new BinWrapper();
 
+    const base = binInstallBase || defaultBinInstallBase;
+
+    let sources = [
+        { url: `${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, os: 'darwin', arch: 'x64' },
+        { url: `${base}/v${version}/saucectl_${version}_mac_arm64.tar.gz`, os: 'darwin', arch: 'arm64' },
+        { url: `${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, os: 'linux', arch: 'x86' },
+        { url: `${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, os: 'linux', arch: 'x64' },
+        { url: `${base}/v${version}/saucectl_${version}_linux_arm64.tar.gz`, os: 'linux', arch: 'arm64' },
+        { url: `${base}/v${version}/saucectl_${version}_win_32-bit.zip`, os: 'win32', arch: 'x86' },
+        { url: `${base}/v${version}/saucectl_${version}_win_32-bit.zip`, os: 'win32', arch: 'x64' },
+        { url: `${base}/v${version}/saucectl_${version}_win_64-bit.zip`, os: 'win64', arch: 'x64' },
+    ];
+
+    sources = sources.filter(x => process.platform === x.os && process.arch === x.arch);
+
+    if (sources.length === 0) {
+        return Promise.reject(new Error(`No binary found matching your system. It's probably not supported.`));
+    }
+
     if (binInstallURL) {
         bw.src(binInstallURL, '', '')
     } else {
-        const base = binInstallBase || defaultBinInstallBase;
-        bw.src(`${base}/v${version}/saucectl_${version}_mac_32-bit.tar.gz`, 'darwin', 'x86')
-            .src(`${base}/v${version}/saucectl_${version}_mac_64-bit.tar.gz`, 'darwin', 'x64')
-            .src(`${base}/v${version}/saucectl_${version}_linux_32-bit.tar.gz`, 'linux', 'x86')
-            .src(`${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, 'linux', 'x64')
-            .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x86')
-            .src(`${base}/v${version}/saucectl_${version}_win_32-bit.zip`, 'win32', 'x64')
-            .src(`${base}/v${version}/saucectl_${version}_win_64-bit.zip`, 'win64', 'x64')
+        bw.src(sources[0].url, '', '')
             .version(`v${version}`);
     }
 

@@ -1,7 +1,7 @@
 {
   "name": "saucectl",
   "version": "0.102.0",
-  "description": "Node.js wrapper for saucectl: Sauce Labs Testrunner Toolkit",
+  "description": "Node.js wrapper for saucectl",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "e2e",
     "toolkit"
   ],
-  "author": "Christian Broamnn <christian@saucelabs.com>",
+  "author": "devx <dev@saucelabs.com>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/saucelabs/node-saucectl/issues"

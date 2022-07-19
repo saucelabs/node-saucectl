@@ -17,8 +17,7 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
         { url: `${base}/v${version}/saucectl_${version}_linux_64-bit.tar.gz`, os: 'linux', arch: 'x64' },
         { url: `${base}/v${version}/saucectl_${version}_linux_arm64.tar.gz`, os: 'linux', arch: 'arm64' },
         { url: `${base}/v${version}/saucectl_${version}_win_32-bit.zip`, os: 'win32', arch: 'x86' },
-        { url: `${base}/v${version}/saucectl_${version}_win_32-bit.zip`, os: 'win32', arch: 'x64' },
-        { url: `${base}/v${version}/saucectl_${version}_win_64-bit.zip`, os: 'win64', arch: 'x64' },
+        { url: `${base}/v${version}/saucectl_${version}_win_64-bit.zip`, os: 'win32', arch: 'x64' },
     ];
 
     sources = sources.filter(x => process.platform === x.os && process.arch === x.arch);

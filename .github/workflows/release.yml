@@ -32,5 +32,5 @@ jobs:
         run: |
           git config --global user.name "oss-sauce-bot"
           git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
-      - if: github.event.client_payload.version != ''
-        run: npx np "v.113.1" --no-2fa
+      #- if: github.event.client_payload.version != ''
+      - run: npx np "v.113.1" --no-2fa

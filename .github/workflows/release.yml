@@ -2,7 +2,12 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 name: saucectl pipeline
 
-on: [repository_dispatch]
+#on: [repository_dispatch]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 env:
   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -12,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Event Information
-        run: echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.version }}'"
+        run: echo "Event '${{ github.event.action }}' received from v.113.1"
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -28,4 +33,4 @@ jobs:
           git config --global user.name "oss-sauce-bot"
           git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
       - if: github.event.client_payload.version != ''
-        run: npx np ${{ github.event.client_payload.version }} --no-2fa
+        run: npx np "v.113.1" --no-2fa

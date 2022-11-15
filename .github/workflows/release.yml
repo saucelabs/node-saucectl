@@ -19,6 +19,8 @@ jobs:
       - name: Event Information
         run: echo "Event '${{ github.event.action }}' received from v.113.1"
       - uses: actions/checkout@v3
+        with:
+          ref: do-not-check-2fa
       - uses: actions/setup-node@v3
         with:
           node-version: 16

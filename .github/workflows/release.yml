@@ -29,3 +29,16 @@ jobs:
           git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
       - if: github.event.client_payload.version != ''
         run: npx np ${{ github.event.client_payload.version }}
+  post-deploy-install:
+    needs: ["deploy"]
+    if: github.event.client_payload.version != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Event Information
+        run: echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.version }}'"
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install saucectl
+        run: npm install saucectl@${{ github.event.client_payload.version }}

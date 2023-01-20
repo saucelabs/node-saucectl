@@ -8,8 +8,5 @@ module.exports = {
 			lines: 70,
 			statements: 70
 		},
-		transform: {
-			"node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
-		},
 	}
 };

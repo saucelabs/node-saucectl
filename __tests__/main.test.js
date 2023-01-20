@@ -25,8 +25,8 @@ describe('main', function () {
 	beforeEach(() => {
 		BinWrapper.mockClear();
 
-    Object.defineProperty(process, 'platform', { value: 'darwin' });
-    Object.defineProperty(process, 'arch', { value: 'arm64' });
+		Object.defineProperty(process, 'platform', { value: 'darwin' });
+		Object.defineProperty(process, 'arch', { value: 'arm64' });
 
 		mockSrc = jest.fn();
 
@@ -41,7 +41,7 @@ describe('main', function () {
 		jest.clearAllMocks();
 
 		Object.defineProperty(process, 'platform', { value: originalOs });
-    Object.defineProperty(process, 'arch', { value: originalArch });
+		Object.defineProperty(process, 'arch', { value: originalArch });
 	});
 
 	test('should run the executable', async function () {

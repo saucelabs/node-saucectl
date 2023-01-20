@@ -16,5 +16,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm install || (cat /home/runner/.npm/_logs/2023-01-20* && tree && false)
+      - run: npm install
       - run: npm test

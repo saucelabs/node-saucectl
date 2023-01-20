@@ -3,6 +3,14 @@ const main = require('../');
 const childProcess = require('child_process');
 const { EventEmitter } = require('events');
 
+const { BinWrapper } = require('@saucelabs/bin-wrapper');
+jest.mock('@saucelabs/bin-wrapper');
+
+let mockSrc;
+
+const originalOs = process.platform;
+const originalArch = process.arch;
+
 describe('main', function () {
 	let exitSpy, mockSpawnEventEmitter;
 	beforeAll(function () {
@@ -11,8 +19,31 @@ describe('main', function () {
 			return mockSpawnEventEmitter;
 		});
 		exitSpy = jest.spyOn(process, 'exit');
-		exitSpy.mockImplementation(() => {});
+		exitSpy.mockImplementation(() => { });
 	});
+
+	beforeEach(() => {
+		BinWrapper.mockClear();
+
+    Object.defineProperty(process, 'platform', { value: 'darwin' });
+    Object.defineProperty(process, 'arch', { value: 'arm64' });
+
+		mockSrc = jest.fn();
+
+		BinWrapper.mockReturnValue({
+			use: jest.fn(),
+			dest: jest.fn(),
+			src: mockSrc,
+			run: jest.fn(),
+		});
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+
+		Object.defineProperty(process, 'platform', { value: originalOs });
+    Object.defineProperty(process, 'arch', { value: originalArch });
+	});
+
 	test('should run the executable', async function () {
 		const bin = {
 			run: jest.fn().mockReturnValue(Promise.resolve(true)),
@@ -26,21 +57,20 @@ describe('main', function () {
 	});
 	describe('.binWrapper', function () {
 		test('should create a binary wrapper', async function () {
-			const bw = await main.binWrapper();
-			expect(Array.isArray(bw._src)).toEqual(true);
-			expect(typeof bw._dest).toEqual('string');
+			await main.binWrapper();
+
+			expect(mockSrc).toMatchSnapshot();
 		});
 		test('should respect the SAUCECTL_INSTALL_BINARY wrapper', async function () {
-			const bw = await main.binWrapper('http://some-fake-url');
-			expect(bw._src).toMatchSnapshot();
-			expect(typeof bw._dest).toEqual('string');
+			await main.binWrapper('http://some-fake-url');
+
+			expect(mockSrc).toMatchSnapshot();
 		});
 
 		test('should respect the SAUCECTL_INSTALL_BINARY_MIRROR wrapper', async function () {
-			const bw = await main.binWrapper(null, 'https://some-fake-mirror-url');
-			expect(Array.isArray(bw._src)).toEqual(true);
-			expect(bw._src[0].url).toMatch(/^https:\/\/some-fake-mirror-url\//);
-			expect(typeof bw._dest).toEqual('string');
+			await main.binWrapper(null, 'https://some-fake-mirror-url');
+
+			expect(mockSrc).toMatchSnapshot();
 		});
 	});
 });

@@ -32,8 +32,8 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
         bw.src(sources[0].url, process.platform, process.arch);
     }
 
-    bw.dest(path.join(__dirname, 'bin'))
-        .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
+    bw.dest(path.join(__dirname, 'bin'));
+    bw.use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
 
     return bw;
 }

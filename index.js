@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { spawn } = require('child_process');
 const path = require('path');
-const BinWrapper = require('bin-wrapper');
+const { BinWrapper } = require('@saucelabs/bin-wrapper');
 
 const version = '0.120.0'
 const defaultBinInstallBase = 'https://github.com/saucelabs/saucectl/releases/download';
@@ -23,18 +23,17 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
     sources = sources.filter(x => process.platform === x.os && process.arch === x.arch);
 
     if (binInstallURL) {
-        bw.src(binInstallURL, '', '')
+        bw.src(binInstallURL, process.platform, process.arch);
     } else {
         if (sources.length === 0) {
             return Promise.reject(new Error(`No binary found matching your system. It's probably not supported.`));
         }
 
-        bw.src(sources[0].url, '', '')
-            .version(`v${version}`);
+        bw.src(sources[0].url, process.platform, process.arch);
     }
 
-    bw.dest(path.join(__dirname, 'bin'))
-        .use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
+    bw.dest(path.join(__dirname, 'bin'));
+    bw.use(process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl');
 
     return bw;
 }

@@ -1,11 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`main .binWrapper should create a binary wrapper 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      "https://github.com/saucelabs/saucectl/releases/download/v0.120.0/saucectl_0.120.0_mac_arm64.tar.gz",
+      "darwin",
+      "arm64",
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
 exports[`main .binWrapper should respect the SAUCECTL_INSTALL_BINARY wrapper 1`] = `
-Array [
-  Object {
-    "arch": "",
-    "os": "",
-    "url": "http://some-fake-url",
-  },
-]
+[MockFunction] {
+  "calls": [
+    [
+      "http://some-fake-url",
+      "darwin",
+      "arm64",
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`main .binWrapper should respect the SAUCECTL_INSTALL_BINARY_MIRROR wrapper 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      "https://some-fake-mirror-url/v0.120.0/saucectl_0.120.0_mac_arm64.tar.gz",
+      "darwin",
+      "arm64",
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
 `;

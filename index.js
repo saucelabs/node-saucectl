@@ -8,6 +8,14 @@ const defaultBinInstallBase = 'https://github.com/saucelabs/saucectl/releases/do
 const binWrapper = (binInstallURL = null, binInstallBase = null) => {
     const bw = new BinWrapper();
 
+    if (process.env.GITHUB_TOKEN) {
+        bw.httpOptions({
+            headers: {
+                authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            }
+        });
+    }
+
     const base = binInstallBase || defaultBinInstallBase;
 
     let sources = [

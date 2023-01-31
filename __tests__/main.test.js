@@ -2,6 +2,7 @@ jest.mock('child_process')
 const main = require('../');
 const childProcess = require('child_process');
 const { EventEmitter } = require('events');
+const packageJson = require('../package.json');
 
 const { BinWrapper } = require('@saucelabs/bin-wrapper');
 jest.mock('@saucelabs/bin-wrapper');
@@ -59,7 +60,13 @@ describe('main', function () {
 		test('should create a binary wrapper', async function () {
 			await main.binWrapper();
 
-			expect(mockSrc).toMatchSnapshot();
+			expect(mockSrc.mock.calls).toEqual([
+				[
+					'https://github.com/saucelabs/saucectl/releases/download/v{{version}}/saucectl_{{version}}_mac_arm64.tar.gz'.replaceAll('{{version}}', packageJson.version),
+					'darwin',
+					'arm64',
+				]
+			]);
 		});
 		test('should respect the SAUCECTL_INSTALL_BINARY wrapper', async function () {
 			await main.binWrapper('http://some-fake-url');
@@ -70,7 +77,13 @@ describe('main', function () {
 		test('should respect the SAUCECTL_INSTALL_BINARY_MIRROR wrapper', async function () {
 			await main.binWrapper(null, 'https://some-fake-mirror-url');
 
-			expect(mockSrc).toMatchSnapshot();
+			expect(mockSrc.mock.calls).toEqual([
+				[
+					'https://some-fake-mirror-url/v{{version}}/saucectl_{{version}}_mac_arm64.tar.gz'.replaceAll('{{version}}', packageJson.version),
+					'darwin',
+					'arm64',
+				]
+			]);
 		});
 	});
 });

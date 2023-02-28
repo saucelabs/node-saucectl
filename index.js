@@ -2,6 +2,7 @@
 const { spawn } = require('child_process');
 const path = require('path');
 const { BinWrapper } = require('@saucelabs/bin-wrapper');
+const { Writable } = require('stream');
 
 const version = '0.125.0'
 const defaultBinInstallBase = 'https://github.com/saucelabs/saucectl/releases/download';
@@ -46,16 +47,33 @@ const binWrapper = (binInstallURL = null, binInstallBase = null) => {
     return bw;
 }
 
+async function preRun (b) {
+    let buf = Buffer.from('');
+    const st = new Writable();
+    st._write = (d) => buf = Buffer.concat([buf, d]);
+
+	const exitCode = await b.run(['--version'], {
+        stdout: st,
+        stderr: st,
+    });
+
+    if (exitCode !== 0) {
+        console.log('Post-installation checks failed. saucectl output was:')
+        console.log(buf.toString());
+        // eslint-disable-next-line no-process-exit
+        process.exit(exitCode);
+    }
+}
+
 /* istanbul ignore next */
 async function main (b, args) {
-	await b.run(['--version']);
+	await preRun(b);
 	const saucectlProcess = spawn(b.path(), args, {
 		stdio: [process.stdin, process.stdout, process.stderr]
 	});
     saucectlProcess.on('exit', function (code) {
-        /* eslint-disable */
+        // eslint-disable-next-line no-process-exit
         process.exit(code);
-        /* eslint-enable */
     });
 }
 

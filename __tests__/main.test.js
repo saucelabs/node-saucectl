@@ -47,7 +47,7 @@ describe('main', function () {
 
 	test('should run the executable', async function () {
 		const bin = {
-			run: jest.fn().mockReturnValue(Promise.resolve(true)),
+			run: jest.fn().mockReturnValue(Promise.resolve(0)),
 			path: jest.fn().mockReturnValue('/bin/saucectl')
 		}
 		await main(bin, ['bar', '--foo'])
@@ -55,6 +55,16 @@ describe('main', function () {
 		expect(childProcess.spawn).toBeCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
 		mockSpawnEventEmitter.emit('exit', 0);
 		expect(exitSpy.mock.calls).toEqual([[0]]);
+	});
+	test('should display carry the exitCode', async function () {
+		const bin = {
+			run: jest.fn().mockReturnValue(Promise.resolve(1)),
+			path: jest.fn().mockReturnValue('/bin/saucectl')
+		}
+		await main(bin, ['bar', '--foo'])
+		expect(bin.run).toBeCalledTimes(1)
+		expect(childProcess.spawn).toBeCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
+		expect(exitSpy.mock.calls).toEqual([[1]]);
 	});
 	describe('.binWrapper', function () {
 		test('should create a binary wrapper', async function () {

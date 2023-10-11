@@ -51,8 +51,8 @@ describe('main', function () {
 			path: jest.fn().mockReturnValue('/bin/saucectl')
 		}
 		await main(bin, ['bar', '--foo'])
-		expect(bin.run).toBeCalledTimes(1)
-		expect(childProcess.spawn).toBeCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
+		expect(bin.run).toHaveBeenCalledTimes(1)
+		expect(childProcess.spawn).toHaveBeenCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
 		mockSpawnEventEmitter.emit('exit', 0);
 		expect(exitSpy.mock.calls).toEqual([[0]]);
 	});
@@ -62,8 +62,8 @@ describe('main', function () {
 			path: jest.fn().mockReturnValue('/bin/saucectl')
 		}
 		await main(bin, ['bar', '--foo'])
-		expect(bin.run).toBeCalledTimes(1)
-		expect(childProcess.spawn).toBeCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
+		expect(bin.run).toHaveBeenCalledTimes(1)
+		expect(childProcess.spawn).toHaveBeenCalledWith('/bin/saucectl', ['bar', '--foo'], expect.any(Object))
 		expect(exitSpy.mock.calls).toEqual([[1]]);
 	});
 	describe('.binWrapper', function () {

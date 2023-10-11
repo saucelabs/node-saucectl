@@ -1,7 +1,7 @@
 Node.js saucectl Wrapper ![build](https://github.com/saucelabs/node-saucectl/workflows/saucectl%20pipeline/badge.svg)
 ========================
 
-Node.js wrapper for saucectl: Sauce Labs Testrunner Toolkit.
+Node.js wrapper for [saucectl](https://github.com/saucelabs/saucectl).
 
 ## Install
 

@@ -35,8 +35,11 @@
     "url": "https://github.com/saucelabs/node-saucectl/issues"
   },
   "homepage": "https://github.com/saucelabs/node-saucectl#readme",
+  "engines": {
+    "node": ">=16.13.2"
+  },
   "dependencies": {
-    "@saucelabs/bin-wrapper": "^0.4.0"
+    "@saucelabs/bin-wrapper": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^8.51.0",

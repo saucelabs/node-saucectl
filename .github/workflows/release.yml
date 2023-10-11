@@ -1,6 +1,5 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-name: saucectl pipeline
+# This workflow is triggered by https://github.com/saucelabs/saucectl on release.
+name: Release
 
 on: [repository_dispatch]
 
@@ -13,22 +12,32 @@ jobs:
     steps:
       - name: Event Information
         run: echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.version }}'"
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - run: npm install
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: NPM Setup
         run: |
           npm set registry "https://registry.npmjs.org/"
           npm set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm whoami
+
       - name: Git Setup
         run: |
           git config --global user.name "oss-sauce-bot"
           git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
       - if: github.event.client_payload.version != ''
         run: npx np ${{ github.event.client_payload.version }}
+
   post-deploy-install:
     needs: ["deploy"]
     if: github.event.client_payload.version != ''
@@ -36,9 +45,12 @@ jobs:
     steps:
       - name: Event Information
         run: echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.version }}'"
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
       - name: Install saucectl
         run: npm install saucectl@${{ github.event.client_payload.version }}

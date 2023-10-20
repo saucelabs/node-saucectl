@@ -11,9 +11,9 @@
     "release:patch": "np patch",
     "release:minor": "np minor",
     "release:major": "np major",
-    "test": "run-s test:*",
-    "test:lint": "prettier --check '**/*.{js,ts,mjs,cjs}' && eslint .",
-    "test:unit": "jest",
+    "lint": "prettier --check '**/*.{js,ts,mjs,cjs}' && eslint .",
+    "fmt": "prettier --write '**/*.{js,ts,mjs,cjs}'",
+    "test": "jest",
     "version": "run-p version:* && git add .",
     "version:bump": "replace-in-files --regex=\"version = '\\d+.\\d+.\\d+'\" --replacement=\"version = '${npm_package_version}'\" ./index.js"
   },

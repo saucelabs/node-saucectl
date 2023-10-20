@@ -17,9 +17,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: npm test
@@ -34,11 +38,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: npm test

@@ -5,9 +5,12 @@ const { binWrapper } = require('./index.js');
 // execute "saucectl --version".
 // So we are 100% sure that the saucectl binary will be available for the next
 // execution.
-async function install () {
+async function install() {
   console.info('Fetching saucectl binary');
-  const bw = binWrapper(process.env.SAUCECTL_INSTALL_BINARY, process.env.SAUCECTL_INSTALL_BINARY_MIRROR);
+  const bw = binWrapper(
+    process.env.SAUCECTL_INSTALL_BINARY,
+    process.env.SAUCECTL_INSTALL_BINARY_MIRROR,
+  );
   bw.run(['--version'])
     .then(() => {
       console.info(`Installation succeed`);
@@ -15,13 +18,15 @@ async function install () {
     })
     .catch((e) => {
       console.error(`Installation failed: ${e}`);
-      console.error(`Check that you have access to https://github.com/saucelabs/saucectl/releases or format of the SAUCECTL_INSTALL_BINARY environment variable is correct\n\n`);
+      console.error(
+        `Check that you have access to https://github.com/saucelabs/saucectl/releases or format of the SAUCECTL_INSTALL_BINARY environment variable is correct\n\n`,
+      );
       process.exit(1);
     });
 }
 
 if (require.main === module) {
-	install();
+  install();
 }
 
 module.exports = install;

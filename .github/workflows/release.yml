@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install
@@ -50,7 +49,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'npm'
 
       - name: Install saucectl
         run: npm install saucectl@${{ github.event.client_payload.version }}

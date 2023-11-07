@@ -3,3 +3,5 @@ package-lock.json
 bin
 coverage
 *.tgz
+.DS_Store
+

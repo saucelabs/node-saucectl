@@ -29,24 +29,26 @@ async function install() {
     })
     .catch((e) => {
       console.error(`Installation failed: ${e}`);
-      const binarySource = process.env.SAUCECTL_INSTALL_BINARY;
-      const binarySourceMirror = process.env.SAUCECTL_INSTALL_BINARY_MIRROR;
-      if (binarySource) {
-        console.error(
-          `Please ensure that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY environment variable: ${sanitizeURL(
-            binarySource,
-          )}.\n\n`,
-        );
-      } else if (binarySourceMirror) {
-        console.error(
-          `Please ensure that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY_MIRROR environment variable: ${sanitizeURL(
-            binarySourceMirror,
-          )}.\n\n`,
-        );
-      } else {
-        console.error(
-          `Please ensure that you have access to https://github.com/saucelabs/saucectl/releases.\n\n`,
-        );
+      if (e.message.includes('AxiosError')) {
+        const binarySource = process.env.SAUCECTL_INSTALL_BINARY;
+        const binarySourceMirror = process.env.SAUCECTL_INSTALL_BINARY_MIRROR;
+        if (binarySource) {
+          console.error(
+            `Please check that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY environment variable: ${sanitizeURL(
+              binarySource,
+            )}\n\n`,
+          );
+        } else if (binarySourceMirror) {
+          console.error(
+            `Please check that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY_MIRROR environment variable: ${sanitizeURL(
+              binarySourceMirror,
+            )}\n\n`,
+          );
+        } else {
+          console.error(
+            `Please check that you have access to https://github.com/saucelabs/saucectl/releases\n\n`,
+          );
+        }
       }
       process.exit(1);
     });

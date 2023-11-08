@@ -33,19 +33,19 @@ async function install() {
       const binarySourceMirror = process.env.SAUCECTL_INSTALL_BINARY_MIRROR;
       if (binarySource) {
         console.error(
-          `Please verify that you have access to the SAUCECTL_INSTALL_BINARY environment variable (${sanitizeURL(
+          `Please ensure that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY environment variable: ${sanitizeURL(
             binarySource,
-          )}).\n\n`,
+          )}.\n\n`,
         );
       } else if (binarySourceMirror) {
         console.error(
-          `Please verify that you have access to the SAUCECTL_INSTALL_BINARY_MIRROR environment variable (${sanitizeURL(
+          `Please ensure that you have access to the URL provided by the SAUCECTL_INSTALL_BINARY_MIRROR environment variable: ${sanitizeURL(
             binarySourceMirror,
-          )}).\n\n`,
+          )}.\n\n`,
         );
       } else {
         console.error(
-          `Please verify that you have access to https://github.com/saucelabs/saucectl/releases.\n\n`,
+          `Please ensure that you have access to https://github.com/saucelabs/saucectl/releases.\n\n`,
         );
       }
       process.exit(1);

@@ -10,6 +10,27 @@ const defaultBinInstallBase =
 const binWrapper = (binInstallURL = null, binInstallBase = null) => {
   const bw = new BinWrapper();
 
+  if (binInstallURL) {
+    try {
+      new URL(binInstallURL);
+    } catch (e) {
+      console.error(
+        `Please ensure the provided saucectl binary source is valid: ${e}`,
+      );
+      return;
+    }
+  }
+  if (binInstallBase) {
+    try {
+      new URL(binInstallBase);
+    } catch (e) {
+      console.error(
+        `Please ensure the provided saucectl binary source mirror is valid: ${e}`,
+      );
+      return;
+    }
+  }
+
   if (process.env.GITHUB_TOKEN) {
     bw.httpOptions({
       headers: {

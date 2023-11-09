@@ -22,6 +22,9 @@ async function install() {
     process.env.SAUCECTL_INSTALL_BINARY,
     process.env.SAUCECTL_INSTALL_BINARY_MIRROR,
   );
+  if (!bw) {
+    return;
+  }
   bw.run(['--version'])
     .then(() => {
       console.info(`Installation succeed`);

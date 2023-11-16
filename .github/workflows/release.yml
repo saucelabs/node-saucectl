@@ -48,7 +48,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version: lts/*
 
       - name: Install saucectl
         run: npm install saucectl@${{ github.event.client_payload.version }}

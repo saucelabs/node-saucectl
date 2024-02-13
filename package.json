@@ -39,7 +39,7 @@
     "node": ">=16.13.2"
   },
   "dependencies": {
-    "@saucelabs/bin-wrapper": "^1.0.0"
+    "@saucelabs/bin-wrapper": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^8.51.0",

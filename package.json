@@ -27,7 +27,7 @@
     "testrunner",
     "tests",
     "e2e",
-    "toolkit"
+    "saucectl"
   ],
   "author": "devx <dev@saucelabs.com>",
   "license": "Apache-2.0",

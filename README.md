@@ -11,6 +11,14 @@ To install `saucectl` using NPM just run:
 $ npm i -g saucectl
 ```
 
+The command should be globally available:
+
+```sh
+$ saucectl -v
+saucectl version 0.4.0
+(build 7468a24c788b4ca4d67d50372c839edf03e5df6a)
+```
+
 __Note:__ When you run the command for the first time, it will initially download the binary. This only happens once.
 
 __Note:__ `saucectl` installation are disabled on Sauce Labs Cloud. If you wish to force the installation, set the `FORCE_INSTALL_SAUCECTL` environment variable to `true`.
@@ -21,14 +29,6 @@ If you need to download `saucectl` from a specific source, or if you are using `
 
 ```
 export SAUCECTL_INSTALL_BINARY=http://localhost:9000/saucectl_0.32.2_mac_64-bit.tar.gz
-```
-
-The command should be globally available:
-
-```sh
-$ saucectl -v
-saucectl version 0.4.0
-(build 7468a24c788b4ca4d67d50372c839edf03e5df6a)
 ```
 
 ### Install Binary from a Mirror Site

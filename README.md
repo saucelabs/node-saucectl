@@ -27,6 +27,9 @@ saucectl version 0.4.0
 
 __Note:__ if you run the command for the first time it will initially download the binary for you. This only happens once.
 
+__Note:__ Downloading and installation are disabled on Sauce Labs Cloud. If you wish to force the installation, set the `FORCE_INSTALL_SAUCECTL` environment variable to `true`.
+
+
 ### Install binary from Mirror
 
 Use the `SAUCECTL_INSTALL_BINARY_MIRROR` env to override the default download base site (https://github.com/saucelabs/saucectl/releases/download)

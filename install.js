@@ -17,6 +17,12 @@ function sanitizeURL(inputURL) {
 // So we are 100% sure that the saucectl binary will be available for the next
 // execution.
 async function install() {
+  if (process.env.SAUCE_VM) {
+    if (!process.env.SAUCECTL_FORCE_INSTALL) {
+      console.info('Skipping the installation of saucectl on Sauce Cloud.');
+      return;
+    }
+  }
   console.info('Fetching saucectl binary');
   const bw = binWrapper(
     process.env.SAUCECTL_INSTALL_BINARY,
@@ -27,7 +33,7 @@ async function install() {
   }
   bw.run(['--version'])
     .then(() => {
-      console.info(`Installation succeed`);
+      console.info('Installation succeeded');
       process.exit(0);
     })
     .catch((e) => {

@@ -18,7 +18,7 @@ function sanitizeURL(inputURL) {
 // execution.
 async function install() {
   if (!process.env.FORCE_INSTALL_SAUCECTL && process.env.SAUCE_VM) {
-    console.info('Skipping the download and installation of saucectl.');
+    console.info('Skipping the installation of saucectl on Sauce Cloud.');
     return;
   }
   console.info('Fetching saucectl binary');
@@ -31,7 +31,7 @@ async function install() {
   }
   bw.run(['--version'])
     .then(() => {
-      console.info('Installation succeed');
+      console.info('Installation succeeded');
       process.exit(0);
     })
     .catch((e) => {

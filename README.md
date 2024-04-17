@@ -23,7 +23,7 @@ __Note:__ When you run the command for the first time, it will initially downloa
 
 __Note:__ `saucectl` installation are disabled on Sauce Labs Cloud. If you wish to force the installation, set the `FORCE_INSTALL_SAUCECTL` environment variable to `true`.
 
-### Install from a Specified Source
+### Install Binary from a Specified Source
 
 If you need to download `saucectl` from a specific source, or if you are using `npx saucectl`, set the following environment variable:
 

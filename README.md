@@ -11,7 +11,7 @@ To install `saucectl` using NPM just run:
 $ npm i -g saucectl
 ```
 
-In case you need to download `saucectl` from a known source or in case you use `npx saucectl` you can use environment variable:
+If you need to download `saucectl` from a specific source, or if you are using `npx saucectl`, set the following environment variable:
 
 ```
 export SAUCECTL_INSTALL_BINARY=http://localhost:9000/saucectl_0.32.2_mac_64-bit.tar.gz
@@ -30,9 +30,9 @@ __Note:__ When you run the command for the first time, it will initially downloa
 __Note:__ `saucectl` installation are disabled on Sauce Labs Cloud. If you wish to force the installation, set the `FORCE_INSTALL_SAUCECTL` environment variable to `true`.
 
 
-### Install binary from Mirror
+### Install Binary from a Mirror Site
 
-Use the `SAUCECTL_INSTALL_BINARY_MIRROR` env to override the default download base site (https://github.com/saucelabs/saucectl/releases/download)
+Override the default download site by setting the `SAUCECTL_INSTALL_BINARY_MIRROR` environment variable to a custom URL. The default site is [Sauce Labs saucectl releases](https://github.com/saucelabs/saucectl/releases/download).
 
 ```bash
 SAUCECTL_INSTALL_BINARY_MIRROR=https://your-mirror-download-site.com/foo/bar npm i -g saucectl

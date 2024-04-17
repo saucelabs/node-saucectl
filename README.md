@@ -5,7 +5,7 @@ Node.js wrapper for [saucectl](https://github.com/saucelabs/saucectl).
 
 ## Install
 
-To install `saucectl` using NPM just run:
+To install `saucectl` via `npm`, simply run the following command:
 
 ```sh
 $ npm i -g saucectl
@@ -41,4 +41,4 @@ SAUCECTL_INSTALL_BINARY_MIRROR=https://your-mirror-download-site.com/foo/bar npm
 
 ---
 
-For more information to `saucectl`, visit its main repository: [saucelabs/saucectl](https://github.com/saucelabs/saucectl).
+For more information about `saucectl`, visit its main repository: [saucelabs/saucectl](https://github.com/saucelabs/saucectl).

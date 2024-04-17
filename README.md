@@ -21,7 +21,7 @@ saucectl version 0.4.0
 
 __Note:__ When you run the command for the first time, it will initially download the binary. This only happens once.
 
-__Note:__ `saucectl` installation is disabled on Sauce Labs Cloud. If you wish to force the installation, set the `FORCE_INSTALL_SAUCECTL` environment variable to `true`.
+__Note:__ `saucectl` installation is disabled on Sauce Labs Cloud. If you wish to force the installation, set the `SAUCECTL_FORCE_INSTALL` environment variable to `true`.
 
 ### Install Binary from a Specified Source
 

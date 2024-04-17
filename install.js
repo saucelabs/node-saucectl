@@ -18,7 +18,7 @@ function sanitizeURL(inputURL) {
 // execution.
 async function install() {
   if (process.env.SAUCE_VM) {
-    if (!process.env.FORCE_INSTALL_SAUCECTL) {
+    if (!process.env.SAUCECTL_FORCE_INSTALL) {
       console.info('Skipping the installation of saucectl on Sauce Cloud.');
       return;
     }

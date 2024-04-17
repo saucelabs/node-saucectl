@@ -25,7 +25,7 @@ __Note:__ `saucectl` installation are disabled on Sauce Labs Cloud. If you wish 
 
 ### Install Binary from a Specified Source
 
-If you need to download `saucectl` from a specific source, or if you are using `npx saucectl`, set the following environment variable:
+If you want the installer to download `saucectl` from a specific source, set the following environment variable:
 
 ```
 export SAUCECTL_INSTALL_BINARY=http://localhost:9000/saucectl_0.32.2_mac_64-bit.tar.gz

@@ -1,6 +1,6 @@
 {
   "name": "saucectl",
-  "version": "0.176.0",
+  "version": "0.177.0",
   "description": "Node.js wrapper for saucectl",
   "main": "index.js",
   "bin": "index.js",

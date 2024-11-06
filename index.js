@@ -4,7 +4,7 @@ const path = require('path');
 const { BinWrapper } = require('@saucelabs/bin-wrapper');
 const { Writable } = require('stream');
 
-const version = '0.186.4';
+const version = '0.187.0';
 const defaultBinInstallBase =
   'https://github.com/saucelabs/saucectl/releases/download';
 const binWrapper = (binInstallURL = null, binInstallBase = null) => {

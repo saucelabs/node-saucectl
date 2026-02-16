@@ -1,5 +1,6 @@
-Node.js saucectl Wrapper ![build](https://github.com/saucelabs/node-saucectl/workflows/saucectl%20pipeline/badge.svg)
+Node.js saucectl Wrapper 
 ========================
+[![Release](https://github.com/saucelabs/node-saucectl/actions/workflows/release.yml/badge.svg)](https://github.com/saucelabs/node-saucectl/actions/workflows/release.yml)
 
 Node.js wrapper for [saucectl](https://github.com/saucelabs/saucectl).
 

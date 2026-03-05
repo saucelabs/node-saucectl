@@ -23,7 +23,11 @@ async function install() {
       return;
     }
   }
-  console.info(process.env.SAUCECTL_INSTALL_BINARY_LOCAL ? 'Locating local saucectl binary' : 'Fetching saucectl binary');
+  console.info(
+    process.env.SAUCECTL_INSTALL_BINARY_LOCAL
+      ? 'Locating local saucectl binary'
+      : 'Fetching saucectl binary',
+  );
   const bw = binWrapper(
     process.env.SAUCECTL_INSTALL_BINARY,
     process.env.SAUCECTL_INSTALL_BINARY_MIRROR,

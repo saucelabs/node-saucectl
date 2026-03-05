@@ -8,7 +8,11 @@ const { Writable } = require('stream');
 const version = '0.202.0';
 const defaultBinInstallBase =
   'https://github.com/saucelabs/saucectl/releases/download';
-const binWrapper = (binInstallURL = null, binInstallBase = null, binLocalPath = null) => {
+const binWrapper = (
+  binInstallURL = null,
+  binInstallBase = null,
+  binLocalPath = null,
+) => {
   const bw = new BinWrapper();
 
   if (binLocalPath) {
@@ -30,7 +34,9 @@ const binWrapper = (binInstallURL = null, binInstallBase = null, binLocalPath = 
         'SAUCECTL_INSTALL_BINARY_LOCAL is set alongside other binary source environment variables. The local path takes precedence.',
       );
     }
-    const binName = process.platform.startsWith('win') ? 'saucectl.exe' : 'saucectl';
+    const binName = process.platform.startsWith('win')
+      ? 'saucectl.exe'
+      : 'saucectl';
     const binDir = path.join(__dirname, 'bin');
     fs.mkdirSync(binDir, { recursive: true });
     fs.copyFileSync(resolvedPath, path.join(binDir, binName));

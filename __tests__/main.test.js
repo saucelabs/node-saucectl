@@ -137,7 +137,10 @@ describe('main', function () {
       expect(bw).toBeDefined();
       expect(BinWrapper).toHaveBeenCalled();
       // should copy into the bin dir, not the original location
-      expect(fs.mkdirSync).toHaveBeenCalledWith(expect.stringContaining('bin'), { recursive: true });
+      expect(fs.mkdirSync).toHaveBeenCalledWith(
+        expect.stringContaining('bin'),
+        { recursive: true },
+      );
       expect(fs.copyFileSync).toHaveBeenCalledWith(
         path.resolve(localPath),
         expect.stringContaining('saucectl'),
@@ -150,54 +153,76 @@ describe('main', function () {
 
     test('should return undefined and log an error when SAUCECTL_INSTALL_BINARY_LOCAL path does not exist', async function () {
       fs.existsSync.mockReturnValue(false);
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const bw = await main.binWrapper(null, null, '/nonexistent/saucectl');
 
       expect(bw).toBeUndefined();
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'),
+      );
       consoleSpy.mockRestore();
     });
 
     test('should return undefined and log an error when SAUCECTL_INSTALL_BINARY_LOCAL points to a directory', async function () {
       fs.existsSync.mockReturnValue(true);
       fs.statSync.mockReturnValue({ isFile: () => false });
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const bw = await main.binWrapper(null, null, '/some/directory');
 
       expect(bw).toBeUndefined();
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'),
+      );
       consoleSpy.mockRestore();
     });
 
     test('should warn when SAUCECTL_INSTALL_BINARY_LOCAL is set alongside SAUCECTL_INSTALL_BINARY', async function () {
       const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
-      const bw = await main.binWrapper('http://some-url', null, '/usr/local/bin/saucectl');
+      const bw = await main.binWrapper(
+        'http://some-url',
+        null,
+        '/usr/local/bin/saucectl',
+      );
 
       expect(bw).toBeDefined();
-      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'));
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('SAUCECTL_INSTALL_BINARY_LOCAL'),
+      );
       warnSpy.mockRestore();
     });
 
     test('should return undefined and log an error when SAUCECTL_INSTALL_BINARY is an invalid URL', async function () {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const bw = await main.binWrapper('not-a-valid-url');
 
       expect(bw).toBeUndefined();
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('saucectl binary source is valid'));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining('saucectl binary source is valid'),
+      );
       consoleSpy.mockRestore();
     });
 
     test('should return undefined and log an error when SAUCECTL_INSTALL_BINARY_MIRROR is an invalid URL', async function () {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const bw = await main.binWrapper(null, 'not-a-valid-mirror');
 
       expect(bw).toBeUndefined();
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('saucectl binary source mirror is valid'));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining('saucectl binary source mirror is valid'),
+      );
       consoleSpy.mockRestore();
     });
 
@@ -205,7 +230,9 @@ describe('main', function () {
       Object.defineProperty(process, 'platform', { value: 'freebsd' });
       Object.defineProperty(process, 'arch', { value: 'mips' });
 
-      await expect(main.binWrapper()).rejects.toThrow('No binary found matching your system');
+      await expect(main.binWrapper()).rejects.toThrow(
+        'No binary found matching your system',
+      );
     });
 
     test('should handle preRun failure and exit with non-zero code', async function () {
@@ -213,7 +240,9 @@ describe('main', function () {
         run: jest.fn().mockResolvedValue(1),
         path: jest.fn().mockReturnValue('/bin/saucectl'),
       };
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+      const consoleSpy = jest
+        .spyOn(console, 'log')
+        .mockImplementation(() => {});
 
       await main(bin, []);
 

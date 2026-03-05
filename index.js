@@ -1,14 +1,50 @@
 #!/usr/bin/env node
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 const { BinWrapper } = require('@saucelabs/bin-wrapper');
 const { Writable } = require('stream');
 
 const version = '0.202.0';
 const defaultBinInstallBase =
   'https://github.com/saucelabs/saucectl/releases/download';
-const binWrapper = (binInstallURL = null, binInstallBase = null) => {
+const binWrapper = (
+  binInstallURL = null,
+  binInstallBase = null,
+  binLocalPath = null,
+) => {
   const bw = new BinWrapper();
+
+  if (binLocalPath) {
+    const resolvedPath = path.resolve(binLocalPath);
+    if (!fs.existsSync(resolvedPath)) {
+      console.error(
+        `Please ensure the path provided by SAUCECTL_INSTALL_BINARY_LOCAL exists: ${resolvedPath}`,
+      );
+      return;
+    }
+    if (!fs.statSync(resolvedPath).isFile()) {
+      console.error(
+        `Please ensure the path provided by SAUCECTL_INSTALL_BINARY_LOCAL points to a file, not a directory: ${resolvedPath}`,
+      );
+      return;
+    }
+    if (binInstallURL || binInstallBase) {
+      console.warn(
+        'SAUCECTL_INSTALL_BINARY_LOCAL is set alongside other binary source environment variables. The local path takes precedence.',
+      );
+    }
+    const binName = process.platform.startsWith('win')
+      ? 'saucectl.exe'
+      : 'saucectl';
+    const binDir = path.join(__dirname, 'bin');
+    fs.mkdirSync(binDir, { recursive: true });
+    fs.copyFileSync(resolvedPath, path.join(binDir, binName));
+    fs.chmodSync(path.join(binDir, binName), 0o755);
+    bw.dest(binDir);
+    bw.use(binName);
+    return bw;
+  }
 
   if (binInstallURL) {
     try {
@@ -134,6 +170,7 @@ if (require.main === module) {
   const bw = binWrapper(
     process.env.SAUCECTL_INSTALL_BINARY,
     process.env.SAUCECTL_INSTALL_BINARY_MIRROR,
+    process.env.SAUCECTL_INSTALL_BINARY_LOCAL,
   );
   main(bw, process.argv.slice(2));
 }

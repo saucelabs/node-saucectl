@@ -25,21 +25,29 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Update npm to a version that supports Trusted Publishing
-        run: npm install -g npm@latest
+        # Trusted publishing needs >= 11.5.1; pinned to a major so a new npm release cannot break publishing.
+        run: npm install -g npm@11
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Test
+        run: npm test
 
       - name: Git Setup
         run: |
           git config --global user.name "oss-sauce-bot"
           git config --global user.email "66365630+oss-sauce-bot@users.noreply.github.com"
 
+      # Publishes via OIDC (trusted publishing), so no NODE_AUTH_TOKEN is needed.
       - name: Release
         if: github.event.client_payload.version != ''
-        run: npx np ${{ github.event.client_payload.version }}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          npm version "$VERSION" -m "%s"
+          npm publish
+          git push --follow-tags
 
   post-deploy-install:
     needs: ["deploy"]

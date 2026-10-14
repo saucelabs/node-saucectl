@@ -4,4 +4,4 @@ bin
 coverage
 *.tgz
 .DS_Store
-
+.idea/

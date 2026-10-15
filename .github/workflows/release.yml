@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Event Information
-        run: echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.version }}'"
+        env:
+          ACTION: ${{ github.event.action }}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: echo "Event '$ACTION' received from '$VERSION'"
       - name: Clone Repository
         uses: actions/checkout@v7
       - name: Setup Node version
@@ -48,9 +51,9 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Release
-        run: npm run release:ci -- ${{ github.event.client_payload.version }}
+        run: npm run release:ci -- "$VERSION"
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          VERSION: ${{ github.event.client_payload.version }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   post-release-install:
@@ -61,5 +64,22 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: lts/*
+      # The registry can take a few minutes to list a newly published version.
+      - name: Wait for version on npm registry
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          for i in $(seq 1 30); do
+            if npm view "saucectl@$VERSION" version --prefer-online 2>/dev/null | grep -qx "$VERSION"; then
+              echo "saucectl@$VERSION is available"
+              exit 0
+            fi
+            echo "Attempt $i: saucectl@$VERSION not visible yet, retrying in 20s"
+            sleep 20
+          done
+          echo "saucectl@$VERSION did not appear on npm within 10 minutes"
+          exit 1
       - name: Install saucectl
-        run: npm install saucectl@${{ github.event.client_payload.version }}
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
+        run: npm install "saucectl@$VERSION" --prefer-online
